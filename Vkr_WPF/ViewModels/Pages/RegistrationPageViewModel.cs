@@ -133,7 +133,7 @@ namespace Vkr_WPF.ViewModels.Pages
                         db.SaveChanges();
                         CustomMessageBox msb = new CustomMessageBox();
                         msb.ShowMessage("Пользователь успешно зарегистрирован\n Логин и пароль отправлены на почту", "Регистрация", "information");
-                        SendEmailMessage();
+                        //SendEmailMessage();
                     }
                 }
                 else

@@ -1,0 +1,61 @@
+﻿<Window x:Class="Vkr_WPF.Views.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vkr_WPF.Views.Windows"
+        mc:Ignorable="d"
+        Title="Главное окно" Height="450" Width="800" Background="#33334C"
+        Foreground="#DBDBEA"
+        FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt">
+    <Window.Resources>
+        <Style x:Key="NavigationButtonsStyle" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#DBDBEA"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="30,0,0,0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0" Background="#2A2A36">
+            <TextBlock Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Foreground="#DBDBEA"
+                   FontSize="22"
+                   Margin="20,0,0,0"/>
+        </Grid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+            <Button Content="Проекты" Style="{StaticResource NavigationButtonsStyle}" 
+                    Command="{Binding ShowProjectsListPageCommand}"/>
+            <Button Content="Документация" Style="{StaticResource NavigationButtonsStyle}" 
+                    Command="{Binding ShowDocumentsListPageCommand}"/>
+            <Button Content="Регистрация" Style="{StaticResource NavigationButtonsStyle}"
+                    Command="{Binding ShowRegistrationPageCommand}"/>
+            <Button Content="Выход" Style="{StaticResource NavigationButtonsStyle}"
+                    Command="{Binding CloseWindowCommand}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="0" Grid.Column="1" Background="#BBD4EA">
+            <TextBlock Text="{Binding PageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" 
+                       Foreground="#0D0D2E"/>
+        </Grid>
+        <Frame Grid.Row="1" Grid.Column="1" Background="White"
+            Content="{Binding CurrentPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</Window>

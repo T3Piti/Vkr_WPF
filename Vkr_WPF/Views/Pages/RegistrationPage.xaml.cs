@@ -12,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Vkr_WPF.ViewModels.Pages;
 
-namespace Vkr_WPF
+namespace Vkr_WPF.Views.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для RegistrationPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RegistrationPage : Page
     {
-        public MainWindow()
+        public RegistrationPage()
         {
             InitializeComponent();
+            RegistrationPageViewModel vm = new RegistrationPageViewModel();
+            this.DataContext = vm;
         }
     }
 }

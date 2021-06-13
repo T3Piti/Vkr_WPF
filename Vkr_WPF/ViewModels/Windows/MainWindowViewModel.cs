@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using Vkr_WPF.Models;
 using Vkr_WPF.RelayCommands;
+using Vkr_WPF.Views.Pages;
 
 namespace Vkr_WPF.ViewModels.Windows
 {
@@ -13,11 +14,7 @@ namespace Vkr_WPF.ViewModels.Windows
         private users_info CurrentUser { get; set; }
 
         #region Actions
-        public Action<MainWindowViewModel> ShowProjectsListPageAction { get; set; }
-        public Action ShowDocumentsListPageAction { get; set; }
-        public Action ShowRegistrationPageAction { get; set; }
-        public Action<project> ShowProjectPageAction { get; set; }
-        public Action ShowAddProjectPageAction { get; set; }
+        public Action CloseWindowAction { get; set; }
         #endregion
 
         #region Bindings
@@ -46,24 +43,38 @@ namespace Vkr_WPF.ViewModels.Windows
 
         private RelayCommand showRegistrationPageCommand;
         public RelayCommand ShowRegistrationPageCommand => showRegistrationPageCommand ?? (showRegistrationPageCommand = new RelayCommand(ShowRegistrationPage));
+
+        private RelayCommand closeWindowCommand;
+        public RelayCommand CloseWindowCommand => closeWindowCommand ?? (closeWindowCommand = new RelayCommand(CloseWindow));
         #endregion
 
         #region Commands methods
         private void ShowRegistrationPage(object obj)
         {
             PageName = "Регистрация";
-            ShowRegistrationPageAction();
+            CurrentPage = new RegistrationPage();
         }
         private void ShowDocumentsListPage(object obj)
         {
             PageName = "Документы";
-            ShowDocumentsListPageAction();
+            CurrentPage = new DocumentsListPage();
         }
         private void ShowProjectsListPage(object obj)
         {
             PageName = "Проекты";
-            ShowProjectsListPageAction(this);
+            CurrentPage = new ProjectsListPage(this);
         }
+        public void ShowProjectPage(project _project )
+        {
+            PageName = "Проект";
+            CurrentPage = new ProjectPage(_project);
+        }
+        public void ShowAddProjectPage()
+        {
+            PageName = "Добавление проекта";
+            CurrentPage = new AddProjectPage();
+        }
+        private void CloseWindow(object obj) => CloseWindowAction();
         #endregion
 
         public MainWindowViewModel(user currentUser)

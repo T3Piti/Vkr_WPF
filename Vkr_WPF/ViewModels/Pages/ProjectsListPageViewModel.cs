@@ -15,9 +15,6 @@ namespace Vkr_WPF.ViewModels.Pages
 {
     public class ProjectsListPageViewModel : INotifyPropertyChanged
     {
-        #region Actions
-        public Action<project> ShowProjectPageAction { get; set; }
-        #endregion
         private MainWindowViewModel MainWindowVM;
 
         #region Bindings
@@ -60,8 +57,8 @@ namespace Vkr_WPF.ViewModels.Pages
         #region Methods
 
         #region do commands
-        private void ShowProjectPage(object obj) => ShowProjectPageAction(SelectedProject);
-        private void ShowAddProjectPage(object obj) => MainWindowVM.ShowAddProjectPageAction();
+        private void ShowProjectPage(object obj) => MainWindowVM.ShowProjectPage(SelectedProject);
+        private void ShowAddProjectPage(object obj) => MainWindowVM.ShowAddProjectPage();
         private void DeleteProject(object obj)
         {
             try
