@@ -8,40 +8,6 @@
     <Property Name="name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
     <NavigationProperty Name="users_info" Relationship="Self.FK_users_info_departments" FromRole="departments" ToRole="users_info" />
   </EntityType>
-  <EntityType Name="document">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="uniqIdent" Type="Guid" Nullable="false" />
-    <Property Name="document_file" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="edits" Relationship="Self.FK_edits_documents" FromRole="documents" ToRole="edits" />
-    <NavigationProperty Name="project_has_document" Relationship="Self.FK_project_has_document_documents" FromRole="documents" ToRole="project_has_document" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="true" />
-  </EntityType>
-  <EntityType Name="documents_status">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="edits" Relationship="Self.FK_edits_documents_status" FromRole="documents_status" ToRole="edits" />
-    <NavigationProperty Name="project_has_document" Relationship="Self.FK_project_has_document_documents_status" FromRole="documents_status" ToRole="project_has_document" />
-  </EntityType>
-  <EntityType Name="edit">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="document_id" Type="Int32" Nullable="false" />
-    <Property Name="status_id" Type="Int32" Nullable="false" />
-    <Property Name="edit_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="document_row" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="document" Relationship="Self.FK_edits_documents" FromRole="edits" ToRole="documents" />
-    <NavigationProperty Name="documents_status" Relationship="Self.FK_edits_documents_status" FromRole="edits" ToRole="documents_status" />
-    <NavigationProperty Name="messages" Relationship="Self.FK_messages_edits" FromRole="edits" ToRole="messages" />
-  </EntityType>
   <EntityType Name="email">
     <Key>
       <PropertyRef Name="id" />
@@ -60,22 +26,8 @@
     <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="edit_id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="edit" Relationship="Self.FK_messages_edits" FromRole="messages" ToRole="edits" />
     <NavigationProperty Name="users_info" Relationship="Self.FK_messages_users_info" FromRole="messages" ToRole="users_info" />
-  </EntityType>
-  <EntityType Name="project_has_document">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="project_id" Type="Int32" Nullable="false" />
-    <Property Name="document_id" Type="Int32" Nullable="false" />
-    <Property Name="stage_id" Type="Int32" />
-    <Property Name="status_id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="document" Relationship="Self.FK_project_has_document_documents" FromRole="project_has_document" ToRole="documents" />
-    <NavigationProperty Name="documents_status" Relationship="Self.FK_project_has_document_documents_status" FromRole="project_has_document" ToRole="documents_status" />
-    <NavigationProperty Name="project" Relationship="Self.FK_project_has_document_projects" FromRole="project_has_document" ToRole="projects" />
-    <NavigationProperty Name="stage" Relationship="Self.FK_project_has_document_stages" FromRole="project_has_document" ToRole="stages" />
+    <NavigationProperty Name="edit" Relationship="docsdbModel.FK_messages_edits" FromRole="message" ToRole="edit" />
   </EntityType>
   <EntityType Name="project_has_employees">
     <Key>
@@ -95,9 +47,9 @@
     <Property Name="name" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="date_start" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="date_end" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="project_has_document" Relationship="Self.FK_project_has_document_projects" FromRole="projects" ToRole="project_has_document" />
     <NavigationProperty Name="project_has_employees" Relationship="Self.FK_project_has_employees_projects" FromRole="projects" ToRole="project_has_employees" />
     <NavigationProperty Name="stages" Relationship="Self.FK_stages_projects" FromRole="projects" ToRole="stages" />
+    <NavigationProperty Name="project_has_document" Relationship="docsdbModel.FK_project_has_document_projects" FromRole="project" ToRole="project_has_document" />
   </EntityType>
   <EntityType Name="role">
     <Key>
@@ -115,10 +67,10 @@
     <Property Name="name" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="project_id" Type="Int32" Nullable="false" />
     <Property Name="status_id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="project_has_document" Relationship="Self.FK_project_has_document_stages" FromRole="stages" ToRole="project_has_document" />
     <NavigationProperty Name="project" Relationship="Self.FK_stages_projects" FromRole="stages" ToRole="projects" />
     <NavigationProperty Name="task_status" Relationship="Self.FK_stages_task_status" FromRole="stages" ToRole="task_status" />
     <NavigationProperty Name="tasks" Relationship="Self.FK_tasks_stages" FromRole="stages" ToRole="tasks" />
+    <NavigationProperty Name="project_has_document" Relationship="docsdbModel.FK_project_has_document_stages" FromRole="stage" ToRole="project_has_document" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -189,6 +141,7 @@
     <NavigationProperty Name="task_has_employees" Relationship="Self.FK_task_has_employees_users_info" FromRole="users_info" ToRole="task_has_employees" />
     <NavigationProperty Name="user" Relationship="Self.FK_users_info_users" FromRole="users_info" ToRole="users" />
     <NavigationProperty Name="phones" Relationship="docsdbModel.FK_phones_users_info" FromRole="users_info" ToRole="phone" />
+    <NavigationProperty Name="documents" Relationship="docsdbModel.FK_documents_users_info" FromRole="users_info" ToRole="document" />
   </EntityType>
   <Association Name="FK_users_info_departments">
     <End Role="departments" Type="Self.department" Multiplicity="1">
@@ -201,76 +154,6 @@
       </Principal>
       <Dependent Role="users_info">
         <PropertyRef Name="department_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_edits_documents">
-    <End Role="documents" Type="Self.document" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="edits" Type="Self.edit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="documents">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="edits">
-        <PropertyRef Name="document_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_project_has_document_documents">
-    <End Role="documents" Type="Self.document" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="project_has_document" Type="Self.project_has_document" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="documents">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="project_has_document">
-        <PropertyRef Name="document_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_edits_documents_status">
-    <End Role="documents_status" Type="Self.documents_status" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="edits" Type="Self.edit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="documents_status">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="edits">
-        <PropertyRef Name="status_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_project_has_document_documents_status">
-    <End Role="documents_status" Type="Self.documents_status" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="project_has_document" Type="Self.project_has_document" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="documents_status">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="project_has_document">
-        <PropertyRef Name="status_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_messages_edits">
-    <End Role="edits" Type="Self.edit" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="messages" Type="Self.message" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="edits">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="messages">
-        <PropertyRef Name="edit_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -299,32 +182,6 @@
       </Principal>
       <Dependent Role="messages">
         <PropertyRef Name="send_user_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_project_has_document_projects">
-    <End Role="projects" Type="Self.project" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="project_has_document" Type="Self.project_has_document" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="projects">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="project_has_document">
-        <PropertyRef Name="project_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_project_has_document_stages">
-    <End Role="stages" Type="Self.stage" Multiplicity="0..1" />
-    <End Role="project_has_document" Type="Self.project_has_document" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="stages">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="project_has_document">
-        <PropertyRef Name="stage_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -466,12 +323,8 @@
   </Association>
   <EntityContainer Name="DocsdbContext" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="departments" EntityType="Self.department" />
-    <EntitySet Name="documents" EntityType="Self.document" />
-    <EntitySet Name="documents_status" EntityType="Self.documents_status" />
-    <EntitySet Name="edits" EntityType="Self.edit" />
     <EntitySet Name="emails" EntityType="Self.email" />
     <EntitySet Name="messages" EntityType="Self.message" />
-    <EntitySet Name="project_has_document" EntityType="Self.project_has_document" />
     <EntitySet Name="project_has_employees" EntityType="Self.project_has_employees" />
     <EntitySet Name="projects" EntityType="Self.project" />
     <EntitySet Name="roles" EntityType="Self.role" />
@@ -486,26 +339,6 @@
       <End Role="departments" EntitySet="departments" />
       <End Role="users_info" EntitySet="users_info" />
     </AssociationSet>
-    <AssociationSet Name="FK_edits_documents" Association="Self.FK_edits_documents">
-      <End Role="documents" EntitySet="documents" />
-      <End Role="edits" EntitySet="edits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_project_has_document_documents" Association="Self.FK_project_has_document_documents">
-      <End Role="documents" EntitySet="documents" />
-      <End Role="project_has_document" EntitySet="project_has_document" />
-    </AssociationSet>
-    <AssociationSet Name="FK_edits_documents_status" Association="Self.FK_edits_documents_status">
-      <End Role="documents_status" EntitySet="documents_status" />
-      <End Role="edits" EntitySet="edits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_project_has_document_documents_status" Association="Self.FK_project_has_document_documents_status">
-      <End Role="documents_status" EntitySet="documents_status" />
-      <End Role="project_has_document" EntitySet="project_has_document" />
-    </AssociationSet>
-    <AssociationSet Name="FK_messages_edits" Association="Self.FK_messages_edits">
-      <End Role="edits" EntitySet="edits" />
-      <End Role="messages" EntitySet="messages" />
-    </AssociationSet>
     <AssociationSet Name="FK_emails_users_info" Association="Self.FK_emails_users_info">
       <End Role="users_info" EntitySet="users_info" />
       <End Role="emails" EntitySet="emails" />
@@ -513,14 +346,6 @@
     <AssociationSet Name="FK_messages_users_info" Association="Self.FK_messages_users_info">
       <End Role="users_info" EntitySet="users_info" />
       <End Role="messages" EntitySet="messages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_project_has_document_projects" Association="Self.FK_project_has_document_projects">
-      <End Role="projects" EntitySet="projects" />
-      <End Role="project_has_document" EntitySet="project_has_document" />
-    </AssociationSet>
-    <AssociationSet Name="FK_project_has_document_stages" Association="Self.FK_project_has_document_stages">
-      <End Role="stages" EntitySet="stages" />
-      <End Role="project_has_document" EntitySet="project_has_document" />
     </AssociationSet>
     <AssociationSet Name="FK_project_has_employees_projects" Association="Self.FK_project_has_employees_projects">
       <End Role="projects" EntitySet="projects" />
@@ -567,6 +392,42 @@
       <End Role="users_info" EntitySet="users_info" />
       <End Role="phone" EntitySet="phones" />
     </AssociationSet>
+    <EntitySet Name="documents" EntityType="docsdbModel.document" />
+    <EntitySet Name="documents_status" EntityType="docsdbModel.documents_status" />
+    <EntitySet Name="edits" EntityType="docsdbModel.edit" />
+    <AssociationSet Name="FK_documents_documents_status" Association="docsdbModel.FK_documents_documents_status">
+      <End Role="documents_status" EntitySet="documents_status" />
+      <End Role="document" EntitySet="documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_documents_users_info" Association="docsdbModel.FK_documents_users_info">
+      <End Role="users_info" EntitySet="users_info" />
+      <End Role="document" EntitySet="documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_edits_documents" Association="docsdbModel.FK_edits_documents">
+      <End Role="document" EntitySet="documents" />
+      <End Role="edit" EntitySet="edits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_edits_documents_status" Association="docsdbModel.FK_edits_documents_status">
+      <End Role="documents_status" EntitySet="documents_status" />
+      <End Role="edit" EntitySet="edits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_messages_edits" Association="docsdbModel.FK_messages_edits">
+      <End Role="edit" EntitySet="edits" />
+      <End Role="message" EntitySet="messages" />
+    </AssociationSet>
+    <EntitySet Name="project_has_document" EntityType="docsdbModel.project_has_document" />
+    <AssociationSet Name="FK_project_has_document_documents" Association="docsdbModel.FK_project_has_document_documents">
+      <End Role="document" EntitySet="documents" />
+      <End Role="project_has_document" EntitySet="project_has_document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_project_has_document_projects" Association="docsdbModel.FK_project_has_document_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="project_has_document" EntitySet="project_has_document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_project_has_document_stages" Association="docsdbModel.FK_project_has_document_stages">
+      <End Role="stage" EntitySet="stages" />
+      <End Role="project_has_document" EntitySet="project_has_document" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="phone">
     <Key>
@@ -588,6 +449,162 @@
       </Principal>
       <Dependent Role="phone">
         <PropertyRef Name="user_info_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="uniqIdent" Type="Guid" Nullable="false" />
+    <Property Name="document_file" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="40" FixedLength="true" Unicode="true" />
+    <Property Name="user_info_id" Type="Int32" Nullable="false" />
+    <Property Name="status_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="documents_status" Relationship="docsdbModel.FK_documents_documents_status" FromRole="document" ToRole="documents_status" />
+    <NavigationProperty Name="users_info" Relationship="docsdbModel.FK_documents_users_info" FromRole="document" ToRole="users_info" />
+    <NavigationProperty Name="edits" Relationship="docsdbModel.FK_edits_documents" FromRole="document" ToRole="edit" />
+    <NavigationProperty Name="project_has_document" Relationship="docsdbModel.FK_project_has_document_documents" FromRole="document" ToRole="project_has_document" />
+  </EntityType>
+  <EntityType Name="documents_status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="documents" Relationship="docsdbModel.FK_documents_documents_status" FromRole="documents_status" ToRole="document" />
+    <NavigationProperty Name="edits" Relationship="docsdbModel.FK_edits_documents_status" FromRole="documents_status" ToRole="edit" />
+  </EntityType>
+  <EntityType Name="edit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="changed_document_id" Type="Int32" Nullable="false" />
+    <Property Name="status_id" Type="Int32" Nullable="false" />
+    <Property Name="edit_string" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="document_row" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="document" Relationship="docsdbModel.FK_edits_documents" FromRole="edit" ToRole="document" />
+    <NavigationProperty Name="documents_status" Relationship="docsdbModel.FK_edits_documents_status" FromRole="edit" ToRole="documents_status" />
+    <NavigationProperty Name="messages" Relationship="docsdbModel.FK_messages_edits" FromRole="edit" ToRole="message" />
+  </EntityType>
+  <Association Name="FK_documents_documents_status">
+    <End Type="docsdbModel.documents_status" Role="documents_status" Multiplicity="1" />
+    <End Type="docsdbModel.document" Role="document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="documents_status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="document">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_documents_users_info">
+    <End Type="docsdbModel.users_info" Role="users_info" Multiplicity="1" />
+    <End Type="docsdbModel.document" Role="document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users_info">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="document">
+        <PropertyRef Name="user_info_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_edits_documents">
+    <End Type="docsdbModel.document" Role="document" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="docsdbModel.edit" Role="edit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="document">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="edit">
+        <PropertyRef Name="changed_document_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_edits_documents_status">
+    <End Type="docsdbModel.documents_status" Role="documents_status" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="docsdbModel.edit" Role="edit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="documents_status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="edit">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_messages_edits">
+    <End Type="docsdbModel.edit" Role="edit" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="docsdbModel.message" Role="message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="edit">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="message">
+        <PropertyRef Name="edit_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="project_has_document">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="project_id" Type="Int32" Nullable="false" />
+    <Property Name="document_id" Type="Int32" Nullable="false" />
+    <Property Name="stage_id" Type="Int32" />
+    <NavigationProperty Name="document" Relationship="docsdbModel.FK_project_has_document_documents" FromRole="project_has_document" ToRole="document" />
+    <NavigationProperty Name="project" Relationship="docsdbModel.FK_project_has_document_projects" FromRole="project_has_document" ToRole="project" />
+    <NavigationProperty Name="stage" Relationship="docsdbModel.FK_project_has_document_stages" FromRole="project_has_document" ToRole="stage" />
+  </EntityType>
+  <Association Name="FK_project_has_document_documents">
+    <End Type="docsdbModel.document" Role="document" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="docsdbModel.project_has_document" Role="project_has_document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="document">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="project_has_document">
+        <PropertyRef Name="document_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_project_has_document_projects">
+    <End Type="docsdbModel.project" Role="project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="docsdbModel.project_has_document" Role="project_has_document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="project_has_document">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_project_has_document_stages">
+    <End Type="docsdbModel.stage" Role="stage" Multiplicity="0..1" />
+    <End Type="docsdbModel.project_has_document" Role="project_has_document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stage">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="project_has_document">
+        <PropertyRef Name="stage_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

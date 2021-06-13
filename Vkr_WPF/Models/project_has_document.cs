@@ -18,10 +18,8 @@ namespace Vkr_WPF.Models
         public int project_id { get; set; }
         public int document_id { get; set; }
         public Nullable<int> stage_id { get; set; }
-        public int status_id { get; set; }
     
         public virtual document document { get; set; }
-        public virtual documents_status documents_status { get; set; }
         public virtual project project { get; set; }
         public virtual stage stage { get; set; }
     }

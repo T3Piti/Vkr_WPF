@@ -17,16 +17,16 @@ namespace Vkr_WPF.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public documents_status()
         {
+            this.documents = new HashSet<document>();
             this.edits = new HashSet<edit>();
-            this.project_has_document = new HashSet<project_has_document>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<edit> edits { get; set; }
+        public virtual ICollection<document> documents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<project_has_document> project_has_document { get; set; }
+        public virtual ICollection<edit> edits { get; set; }
     }
 }

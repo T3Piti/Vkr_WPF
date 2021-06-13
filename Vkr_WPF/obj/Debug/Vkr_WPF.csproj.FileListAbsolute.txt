@@ -20,3 +20,4 @@ C:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\obj\Debug\Vkr_WPF.csproj.CoreCompil
 C:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\obj\Debug\Vkr_WPF.csproj.CopyComplete
 C:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\obj\Debug\Vkr_WPF.exe
 C:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\obj\Debug\Vkr_WPF.pdb
+C:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

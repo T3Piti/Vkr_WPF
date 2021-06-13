@@ -21,7 +21,7 @@ namespace Vkr_WPF.Models
         }
     
         public int id { get; set; }
-        public int document_id { get; set; }
+        public int changed_document_id { get; set; }
         public int status_id { get; set; }
         public string edit_string { get; set; }
         public int document_row { get; set; }

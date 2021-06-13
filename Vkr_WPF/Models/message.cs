@@ -20,7 +20,7 @@ namespace Vkr_WPF.Models
         public string text { get; set; }
         public int edit_id { get; set; }
     
-        public virtual edit edit { get; set; }
         public virtual users_info users_info { get; set; }
+        public virtual edit edit { get; set; }
     }
 }

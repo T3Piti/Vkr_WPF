@@ -17,9 +17,9 @@ namespace Vkr_WPF.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public project()
         {
-            this.project_has_document = new HashSet<project_has_document>();
             this.project_has_employees = new HashSet<project_has_employees>();
             this.stages = new HashSet<stage>();
+            this.project_has_document = new HashSet<project_has_document>();
         }
     
         public int id { get; set; }
@@ -28,10 +28,10 @@ namespace Vkr_WPF.Models
         public System.DateTime date_end { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<project_has_document> project_has_document { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<project_has_employees> project_has_employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<stage> stages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<project_has_document> project_has_document { get; set; }
     }
 }

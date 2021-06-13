@@ -6,12 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3888827eeec840e7b7739a241a63e8c1" Name="Diagram1">
         <EntityTypeShape EntityType="docsdbModel.department" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="docsdbModel.document" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="docsdbModel.documents_status" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="docsdbModel.edit" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="docsdbModel.email" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="docsdbModel.message" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="docsdbModel.project_has_document" Width="1.5" PointX="10.25" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="docsdbModel.project_has_employees" Width="1.5" PointX="10.5" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="docsdbModel.project" Width="1.5" PointX="3.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="docsdbModel.role" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
@@ -23,15 +19,8 @@
         <EntityTypeShape EntityType="docsdbModel.user" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="docsdbModel.users_info" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="docsdbModel.FK_users_info_departments" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_edits_documents" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_project_has_document_documents" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_edits_documents_status" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_project_has_document_documents_status" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_messages_edits" ManuallyRouted="false" />
         <AssociationConnector Association="docsdbModel.FK_emails_users_info" ManuallyRouted="false" />
         <AssociationConnector Association="docsdbModel.FK_messages_users_info" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_project_has_document_projects" ManuallyRouted="false" />
-        <AssociationConnector Association="docsdbModel.FK_project_has_document_stages" ManuallyRouted="false" />
         <AssociationConnector Association="docsdbModel.FK_project_has_employees_projects" ManuallyRouted="false" />
         <AssociationConnector Association="docsdbModel.FK_project_has_employees_users_info" ManuallyRouted="false" />
         <AssociationConnector Association="docsdbModel.FK_stages_projects" ManuallyRouted="false" />
@@ -44,6 +33,18 @@
         <AssociationConnector Association="docsdbModel.FK_users_info_users" ManuallyRouted="false" />
         <EntityTypeShape EntityType="docsdbModel.phone" Width="1.5" PointX="10.5" PointY="3.25" />
         <AssociationConnector Association="docsdbModel.FK_phones_users_info" />
+        <EntityTypeShape EntityType="docsdbModel.document" Width="1.5" PointX="2.875" PointY="17.5" />
+        <EntityTypeShape EntityType="docsdbModel.documents_status" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="docsdbModel.edit" Width="1.5" PointX="5.25" PointY="15" />
+        <AssociationConnector Association="docsdbModel.FK_documents_documents_status" />
+        <AssociationConnector Association="docsdbModel.FK_documents_users_info" />
+        <AssociationConnector Association="docsdbModel.FK_edits_documents" />
+        <AssociationConnector Association="docsdbModel.FK_edits_documents_status" />
+        <AssociationConnector Association="docsdbModel.FK_messages_edits" />
+        <EntityTypeShape EntityType="docsdbModel.project_has_document" Width="1.5" PointX="10.25" PointY="11.5" />
+        <AssociationConnector Association="docsdbModel.FK_project_has_document_documents" />
+        <AssociationConnector Association="docsdbModel.FK_project_has_document_projects" />
+        <AssociationConnector Association="docsdbModel.FK_project_has_document_stages" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

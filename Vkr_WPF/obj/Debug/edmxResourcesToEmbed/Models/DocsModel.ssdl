@@ -16,6 +16,8 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="date" Type="date" Nullable="false" />
     <Property Name="name" Type="nchar" MaxLength="40" Nullable="false" />
+    <Property Name="user_info_id" Type="int" Nullable="false" />
+    <Property Name="status_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="documents_status">
     <Key>
@@ -29,7 +31,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="document_id" Type="int" Nullable="false" />
+    <Property Name="changed_document_id" Type="int" Nullable="false" />
     <Property Name="status_id" Type="int" Nullable="false" />
     <Property Name="edit_string" Type="text" Nullable="false" />
     <Property Name="document_row" Type="int" Nullable="false" />
@@ -68,7 +70,6 @@
     <Property Name="project_id" Type="int" Nullable="false" />
     <Property Name="document_id" Type="int" Nullable="false" />
     <Property Name="stage_id" Type="int" />
-    <Property Name="status_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="project_has_employees">
     <Key>
@@ -157,6 +158,30 @@
     <Property Name="user_id" Type="nchar" MaxLength="20" />
     <Property Name="department_id" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="FK_documents_documents_status">
+    <End Role="documents_status" Type="Self.documents_status" Multiplicity="1" />
+    <End Role="documents" Type="Self.documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="documents_status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="documents">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_documents_users_info">
+    <End Role="users_info" Type="Self.users_info" Multiplicity="1" />
+    <End Role="documents" Type="Self.documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users_info">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="documents">
+        <PropertyRef Name="user_info_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_edits_documents">
     <End Role="documents" Type="Self.documents" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -167,7 +192,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="edits">
-        <PropertyRef Name="document_id" />
+        <PropertyRef Name="changed_document_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -252,20 +277,6 @@
       </Principal>
       <Dependent Role="project_has_document">
         <PropertyRef Name="document_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_project_has_document_documents_status">
-    <End Role="documents_status" Type="Self.documents_status" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="project_has_document" Type="Self.project_has_document" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="documents_status">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="project_has_document">
-        <PropertyRef Name="status_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -464,6 +475,14 @@
     <EntitySet Name="tasks" EntityType="Self.tasks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users_info" EntityType="Self.users_info" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_documents_documents_status" Association="Self.FK_documents_documents_status">
+      <End Role="documents_status" EntitySet="documents_status" />
+      <End Role="documents" EntitySet="documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_documents_users_info" Association="Self.FK_documents_users_info">
+      <End Role="users_info" EntitySet="users_info" />
+      <End Role="documents" EntitySet="documents" />
+    </AssociationSet>
     <AssociationSet Name="FK_edits_documents" Association="Self.FK_edits_documents">
       <End Role="documents" EntitySet="documents" />
       <End Role="edits" EntitySet="edits" />
@@ -490,10 +509,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_project_has_document_documents" Association="Self.FK_project_has_document_documents">
       <End Role="documents" EntitySet="documents" />
-      <End Role="project_has_document" EntitySet="project_has_document" />
-    </AssociationSet>
-    <AssociationSet Name="FK_project_has_document_documents_status" Association="Self.FK_project_has_document_documents_status">
-      <End Role="documents_status" EntitySet="documents_status" />
       <End Role="project_has_document" EntitySet="project_has_document" />
     </AssociationSet>
     <AssociationSet Name="FK_project_has_document_projects" Association="Self.FK_project_has_document_projects">

@@ -9,36 +9,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="documents">
-      <EntityTypeMapping TypeName="docsdbModel.document">
-        <MappingFragment StoreEntitySet="documents">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="uniqIdent" ColumnName="uniqIdent" />
-          <ScalarProperty Name="document_file" ColumnName="document_file" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="date" ColumnName="date" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="documents_status">
-      <EntityTypeMapping TypeName="docsdbModel.documents_status">
-        <MappingFragment StoreEntitySet="documents_status">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="edits">
-      <EntityTypeMapping TypeName="docsdbModel.edit">
-        <MappingFragment StoreEntitySet="edits">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="document_id" ColumnName="document_id" />
-          <ScalarProperty Name="status_id" ColumnName="status_id" />
-          <ScalarProperty Name="edit_string" ColumnName="edit_string" />
-          <ScalarProperty Name="document_row" ColumnName="document_row" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="emails">
       <EntityTypeMapping TypeName="docsdbModel.email">
         <MappingFragment StoreEntitySet="emails">
@@ -56,17 +26,6 @@
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="text" ColumnName="text" />
           <ScalarProperty Name="edit_id" ColumnName="edit_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="project_has_document">
-      <EntityTypeMapping TypeName="docsdbModel.project_has_document">
-        <MappingFragment StoreEntitySet="project_has_document">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="project_id" ColumnName="project_id" />
-          <ScalarProperty Name="document_id" ColumnName="document_id" />
-          <ScalarProperty Name="stage_id" ColumnName="stage_id" />
-          <ScalarProperty Name="status_id" ColumnName="status_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -172,6 +131,48 @@
         <MappingFragment StoreEntitySet="phones">
           <ScalarProperty Name="phone_number" ColumnName="phone_number" />
           <ScalarProperty Name="user_info_id" ColumnName="user_info_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documents">
+      <EntityTypeMapping TypeName="docsdbModel.document">
+        <MappingFragment StoreEntitySet="documents">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="user_info_id" ColumnName="user_info_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="document_file" ColumnName="document_file" />
+          <ScalarProperty Name="uniqIdent" ColumnName="uniqIdent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documents_status">
+      <EntityTypeMapping TypeName="docsdbModel.documents_status">
+        <MappingFragment StoreEntitySet="documents_status">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="edits">
+      <EntityTypeMapping TypeName="docsdbModel.edit">
+        <MappingFragment StoreEntitySet="edits">
+          <ScalarProperty Name="document_row" ColumnName="document_row" />
+          <ScalarProperty Name="edit_string" ColumnName="edit_string" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="changed_document_id" ColumnName="changed_document_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="project_has_document">
+      <EntityTypeMapping TypeName="docsdbModel.project_has_document">
+        <MappingFragment StoreEntitySet="project_has_document">
+          <ScalarProperty Name="stage_id" ColumnName="stage_id" />
+          <ScalarProperty Name="document_id" ColumnName="document_id" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

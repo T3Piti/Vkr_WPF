@@ -26,12 +26,8 @@ namespace Vkr_WPF.Models
         }
     
         public virtual DbSet<department> departments { get; set; }
-        public virtual DbSet<document> documents { get; set; }
-        public virtual DbSet<documents_status> documents_status { get; set; }
-        public virtual DbSet<edit> edits { get; set; }
         public virtual DbSet<email> emails { get; set; }
         public virtual DbSet<message> messages { get; set; }
-        public virtual DbSet<project_has_document> project_has_document { get; set; }
         public virtual DbSet<project_has_employees> project_has_employees { get; set; }
         public virtual DbSet<project> projects { get; set; }
         public virtual DbSet<role> roles { get; set; }
@@ -43,5 +39,9 @@ namespace Vkr_WPF.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<users_info> users_info { get; set; }
         public virtual DbSet<phone> phones { get; set; }
+        public virtual DbSet<document> documents { get; set; }
+        public virtual DbSet<documents_status> documents_status { get; set; }
+        public virtual DbSet<edit> edits { get; set; }
+        public virtual DbSet<project_has_document> project_has_document { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace Vkr_WPF.Models
             this.project_has_employees = new HashSet<project_has_employees>();
             this.task_has_employees = new HashSet<task_has_employees>();
             this.phones = new HashSet<phone>();
+            this.documents = new HashSet<document>();
         }
     
         public int id { get; set; }
@@ -43,5 +44,7 @@ namespace Vkr_WPF.Models
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<phone> phones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<document> documents { get; set; }
     }
 }

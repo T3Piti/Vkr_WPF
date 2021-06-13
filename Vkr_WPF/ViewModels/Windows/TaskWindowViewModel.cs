@@ -13,7 +13,7 @@ namespace Vkr_WPF.ViewModels.Windows
 {
     public class TaskWindowViewModel : INotifyPropertyChanged
     {
-        private task CurrentTask { get; set; }
+        public task CurrentTask { get; set; }
 
         #region Actions
         public Action<ShortEmployeeModel> ShowEmployeeWindowAction { get; set; }
