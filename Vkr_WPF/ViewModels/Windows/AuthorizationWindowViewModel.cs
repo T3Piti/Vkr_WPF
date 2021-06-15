@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using Vkr_WPF.CustomMessages;
 using Vkr_WPF.Models;
 using Vkr_WPF.RelayCommands;
+using Vkr_WPF.UserInfoStatic;
 
 namespace Vkr_WPF.ViewModels.Windows
 {
@@ -44,8 +45,7 @@ namespace Vkr_WPF.ViewModels.Windows
                     var userModel = db.users.Where(u => u.id == Login && u.password == pwb.Password).FirstOrDefault();
                     if (userModel != null)
                     {
-                        CustomMessageBox cmsb = new CustomMessageBox();
-                        cmsb.ShowMessage("Вы успешно авторизовались", "Авторизация", "information");
+                        UserData.User = db.users_info.Where(u => u.user_id==userModel.id).FirstOrDefault();
                         ShowMainWindowAction(userModel);
                         CloseCurrentWindowAction();
                     }

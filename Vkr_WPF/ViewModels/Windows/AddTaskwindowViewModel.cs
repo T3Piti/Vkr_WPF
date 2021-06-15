@@ -44,7 +44,8 @@ namespace Vkr_WPF.ViewModels.Windows
                     db.tasks.Add(new task {
                     name = TaskName,
                     description = TaskDescription,
-                    status_id = SelectedStatus.id
+                    status_id = SelectedStatus.id,
+                    stage_id = ProjectstageVM.CurrentStage.id
                     });
                     db.SaveChanges();
                 }
@@ -64,11 +65,32 @@ namespace Vkr_WPF.ViewModels.Windows
                 return true;
             return false;
         }
+
+        private void LoadStatuses()
+        {
+            StatusesList.Clear();
+            try
+            {
+                using (var db = new DocsdbContext())
+                {
+                    var _statuses = db.task_status.ToList();
+                    foreach (var _status in _statuses)
+                        StatusesList.Add(_status);
+                }
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox msb = new CustomMessageBox();
+                msb.ShowMessage(ex.Message, "Ошибка загрузки статусов", "error");
+            }
+        }
         #endregion
 
         public AddTaskwindowViewModel(ProjectStageWindowViewModel vm)
         {
             ProjectstageVM = vm;
+            StatusesList = new ObservableCollection<task_status>();
+            LoadStatuses();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

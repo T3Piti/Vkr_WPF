@@ -13,7 +13,7 @@ namespace Vkr_WPF.ViewModels.Windows
 {
     public class TaskWindowViewModel : INotifyPropertyChanged
     {
-        public task CurrentTask { get; set; }
+        public ProjectStageWindowViewModel ProjectStageVM { get; set; }
 
         #region Actions
         public Action<ShortEmployeeModel> ShowEmployeeWindowAction { get; set; }
@@ -67,7 +67,7 @@ namespace Vkr_WPF.ViewModels.Windows
         public RelayCommand ShowEmployeeWindowCommand => showEmployeeWindowCommand ?? (showEmployeeWindowCommand = new RelayCommand(ShowEmployeeWindow, CanShowEmployeeWindow));
 
         private RelayCommand showAddEmployeeWindowCommand;
-        public RelayCommand ShowAddEmployeeWindowCommand => showAddEmployeeWindowCommand ?? (showAddEmployeeWindowCommand = new RelayCommand(ShowAddEmployeeWindow, CanShowAddEmployeeWindow));
+        public RelayCommand ShowAddEmployeeWindowCommand => showAddEmployeeWindowCommand ?? (showAddEmployeeWindowCommand = new RelayCommand(ShowAddEmployeeWindow));
 
         private RelayCommand deleteEmployeeCommand;
         public RelayCommand DeleteEmployeeCommand => deleteEmployeeCommand ?? (deleteEmployeeCommand = new RelayCommand(DeleteEmployee, CanDeleteEmployee));
@@ -82,7 +82,7 @@ namespace Vkr_WPF.ViewModels.Windows
             {
                 using (var db = new DocsdbContext())
                 {
-                    var _employee = db.task_has_employees.Where(e => e.user_info_id==SelectedEmployee.Id && e.task_id == CurrentTask.id).FirstOrDefault();
+                    var _employee = db.task_has_employees.Where(e => e.user_info_id==SelectedEmployee.Id && e.task_id == ProjectStageVM.SelectedTask.id).FirstOrDefault();
                     db.task_has_employees.Remove(_employee);
                     db.SaveChanges();
                 }
@@ -104,10 +104,9 @@ namespace Vkr_WPF.ViewModels.Windows
             {
                 using (var db = new DocsdbContext())
                 {
-                    var _task = db.tasks.Find(CurrentTask.id);
+                    var _task = db.tasks.Find(ProjectStageVM.SelectedTask.id);
                     _task.description = TaskDescription;
                     db.SaveChanges();
-                    CurrentTask = _task;
                 }
                 CustomMessageBox msb = new CustomMessageBox();
                 msb.ShowMessage("Изменения сохранены", "Сохранение изменений", "information");
@@ -132,12 +131,6 @@ namespace Vkr_WPF.ViewModels.Windows
 
         #region can do commands
         private bool CanDeleteEmployee(object arg)
-        {
-            if (SelectedEmployee != null)
-                return true;
-            return false;
-        }
-        private bool CanShowAddEmployeeWindow(object arg)
         {
             if (SelectedEmployee != null)
                 return true;
@@ -171,7 +164,7 @@ namespace Vkr_WPF.ViewModels.Windows
             {
                 using (var db = new DocsdbContext())
                 {
-                    var _employees = db.task_has_employees.Where(e => e.task_id == CurrentTask.id).ToList();
+                    var _employees = db.task_has_employees.Where(e => e.task_id == ProjectStageVM.SelectedTask.id).ToList();
                     foreach (var _employee in _employees)
                         EmployeesList.Add(new ShortEmployeeModel
                         {
@@ -192,16 +185,16 @@ namespace Vkr_WPF.ViewModels.Windows
         }
         private void SetTaskInfo()
         {
-            TaskName = CurrentTask.name;
-            TaskDescription = CurrentTask.description;
+            TaskName = ProjectStageVM.SelectedTask.name;
+            TaskDescription = ProjectStageVM.SelectedTask.description;
         }
         #endregion
 
         #endregion
 
-        public TaskWindowViewModel(task currentTask)
+        public TaskWindowViewModel(ProjectStageWindowViewModel vm)
         {
-            CurrentTask = currentTask;
+            ProjectStageVM = vm;
             EmployeesList = new ObservableCollection<ShortEmployeeModel>();
             LoadEmployees();
             SetTaskInfo();

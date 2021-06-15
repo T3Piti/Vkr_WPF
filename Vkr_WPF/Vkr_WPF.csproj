@@ -73,6 +73,7 @@
     <Compile Include="CustomMessages\CustomMessageBox.cs" />
     <Compile Include="Models\CustomDataModels\ShortEmployeeModel.cs" />
     <Compile Include="RelayCommands\RelayCommand.cs" />
+    <Compile Include="UserInfoStatic\UserData.cs" />
     <Compile Include="ViewModels\Pages\AddProjectPageViewModel.cs" />
     <Compile Include="ViewModels\Pages\DocumentsListPageViewModel.cs" />
     <Compile Include="ViewModels\Pages\ProjectPageViewModel.cs" />
@@ -83,9 +84,10 @@
     <Compile Include="ViewModels\Windows\AddStageWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows\AddTaskwindowViewModel.cs" />
     <Compile Include="ViewModels\Windows\AuthorizationWindowViewModel.cs" />
+    <Compile Include="ViewModels\Windows\DocumentWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows\EmployeeWindowViewModel.cs" />
     <Compile Include="ViewModels\Windows\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\Windows\ProjectPage.xaml.cs">
+    <Compile Include="Views\Pages\ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Windows\ProjectStageWindowViewModel.cs" />
@@ -100,20 +102,44 @@
     <Compile Include="Views\Pages\DocumentsListPage.xaml.cs">
       <DependentUpon>DocumentsListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\ProjectPage.xaml.cs">
-      <DependentUpon>ProjectPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Pages\ProjectsListPage.xaml.cs">
       <DependentUpon>ProjectsListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\AddDocumentWindow.xaml.cs">
+      <DependentUpon>AddDocumentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddEditWindow.xaml.cs">
+      <DependentUpon>AddEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddStageWindow.xaml.cs">
+      <DependentUpon>AddStageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\AddTaskwindow.xaml.cs">
+      <DependentUpon>AddTaskwindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\DocumentWindow.xaml.cs">
+      <DependentUpon>DocumentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\EmployeeWindow.xaml.cs">
+      <DependentUpon>EmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\ProjectStageWindow.xaml.cs">
+      <DependentUpon>ProjectStageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\TaskWindow.xaml.cs">
+      <DependentUpon>TaskWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +266,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ViewModels\Windows\ProjectPage.xaml">
+    <Page Include="Views\Pages\ProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,10 +278,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\ProjectPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Pages\ProjectsListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,11 +286,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\AddDocumentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddStageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\AddTaskwindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\AuthorizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Windows\DocumentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\EmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ProjectStageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\TaskWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

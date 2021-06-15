@@ -1,0 +1,142 @@
+﻿<Window x:Class="Vkr_WPF.Views.Windows.AddEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vkr_WPF.Views.Windows"
+        mc:Ignorable="d" 
+        Height="310" MinHeight="310" MaxHeight="310"
+        MinWidth="500"
+        Width="500"
+        ResizeMode="CanResize">
+    <Window.Resources>
+        <Style x:Key="TextBoxStyle">
+            <Setter Property="ItemsControl.Background" Value="Transparent"/>
+            <Setter Property="ItemsControl.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="0"/>
+            <Setter Property="ItemsControl.Padding" Value="5"/>
+            <Setter Property="ItemsControl.Foreground" Value="#DBDBEA"/>
+            <Setter Property="ItemsControl.FontSize" Value="20"/>
+            <Setter Property="ItemsControl.Width" Value="280"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <!--Поиск сотрудников-->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
+            <Label Content="Сотрудники"
+                   Padding="5"
+                   Margin="10"
+                   FontSize="20"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Stretch"
+                   Background="Transparent"
+                   Foreground="#0D0D2E"/>
+            <Border CornerRadius="15"
+                    Background="#0D0D2E"
+                    Width="300"
+                    Height="50"
+                    Margin="10">
+                <Grid>
+                    <Rectangle StrokeThickness="1"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}"
+                             x:Name="SearchEmployeeBox" 
+                             Text="{Binding SearchEmployeeString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBlock IsHitTestVisible="False"
+                               Text="Поиск сотрудников"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="DarkGray"
+                               FontSize="13"
+                               Padding="5"
+                               Margin="10,0,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchEmployeeBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </StackPanel>
+        
+        <!--Список сотрудников-->
+        <ListBox Grid.Row="2" Background="Transparent"
+                 ItemsSource="{Binding EmployeesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MinHeight="180"
+                 BorderThickness="2"
+                 Margin="10"
+                 VerticalAlignment="Top">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="30"
+                        Background="#1A0C2C"
+                        Width="300"
+                        Height="150"
+                        Margin="10">
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <StackPanel>
+                                <Label Content="{Binding Path=Name}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=SecondName}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=Patronymic}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=Department}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Просмотреть"
+                              Command="{Binding ShowEmployeWindowCommand}"/>
+                    <MenuItem Header="Добавить" 
+                              Command="{Binding AddEmployeeCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+    </Grid>
+</Window>

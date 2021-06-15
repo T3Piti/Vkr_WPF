@@ -10,20 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Vkr_WPF.Models;
+using Vkr_WPF.Models.CustomDataModels;
+using Vkr_WPF.ViewModels.Windows;
 
-namespace Vkr_WPF.ViewModels.Windows
+namespace Vkr_WPF.Views.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для ProjectPage.xaml
+    /// Логика взаимодействия для EmployeeWindow.xaml
     /// </summary>
-    public partial class ProjectPage : Page
+    public partial class EmployeeWindow : Window
     {
-        public ProjectPage(project obj)
+        public EmployeeWindow(ShortEmployeeModel obj)
         {
             InitializeComponent();
+            EmployeeWindowViewModel vm = new EmployeeWindowViewModel(obj);
+            this.DataContext = vm;
         }
     }
 }

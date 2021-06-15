@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\App.xaml
-81924952746
+16-792866215
 2-833054493
-52-459480949
+62-157555408
 20-651166793
-ViewModels\Windows\ProjectPage.xaml;Views\Pages\AddProjectPage.xaml;Views\Pages\DocumentsListPage.xaml;Views\Pages\ProjectPage.xaml;Views\Pages\ProjectsListPage.xaml;Views\Pages\RegistrationPage.xaml;Views\Windows\AuthorizationWindow.xaml;Views\Windows\MainWindow.xaml;
+Views\Pages\ProjectPage.xaml;Views\Pages\AddProjectPage.xaml;Views\Pages\DocumentsListPage.xaml;Views\Pages\ProjectsListPage.xaml;Views\Pages\RegistrationPage.xaml;Views\Windows\AddDocumentWindow.xaml;Views\Windows\AddEditWindow.xaml;Views\Windows\AddEmployeeWindow.xaml;Views\Windows\AddStageWindow.xaml;Views\Windows\AddTaskwindow.xaml;Views\Windows\AuthorizationWindow.xaml;Views\Windows\DocumentWindow.xaml;Views\Windows\EmployeeWindow.xaml;Views\Windows\MainWindow.xaml;Views\Windows\ProjectStageWindow.xaml;Views\Windows\TaskWindow.xaml;
 
 True
 

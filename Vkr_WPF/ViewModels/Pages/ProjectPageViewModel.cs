@@ -33,10 +33,13 @@ namespace Vkr_WPF.ViewModels.Pages
 
         #region Bindings
 
+        private string projectName;
+        public string ProjectName { get => projectName; set { projectName = value; OnPropertyChanged(); } }
+
         #region Collections
-        public ObservableCollection<ShortEmployeeModel> EmployeesList;
-        public ObservableCollection<stage> StagesList;
-        public ObservableCollection<document> DocumentsList;
+        public ObservableCollection<ShortEmployeeModel> EmployeesList { get; set; }
+        public ObservableCollection<stage> StagesList { get; set; }
+        public ObservableCollection<document> DocumentsList { get; set; }
         #endregion
 
         #region selected items
@@ -366,6 +369,7 @@ namespace Vkr_WPF.ViewModels.Pages
             EmployeesList = new ObservableCollection<ShortEmployeeModel>();
             DocumentsList = new ObservableCollection<document>();
             this.CurrentProject = currentProject;
+            this.ProjectName = currentProject.name;
             LoadStages();
             LoadEmployees();
             LoadDocuments();

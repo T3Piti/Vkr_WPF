@@ -60,7 +60,7 @@ namespace Vkr_WPF.ViewModels.Pages
         #region can do commands
         private bool CanAddProject(object arg)
         {
-            if (DateStart > DateEnd)
+            if (DateStart < DateEnd && ProjectName !=String.Empty)
                 return true;
             return false;
         }

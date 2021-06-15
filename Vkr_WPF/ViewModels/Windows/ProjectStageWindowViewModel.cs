@@ -18,7 +18,7 @@ namespace Vkr_WPF.ViewModels.Windows
 
         #region show
         public Action<ShortEmployeeModel> ShowEmployeeWindowAction { get; set; }
-        public Action<task> ShowTaskWindowAction { get; set; }
+        public Action<ProjectStageWindowViewModel> ShowTaskWindowAction { get; set; }
         public Action<document> ShowDocumentWindowAction { get; set; }
         #endregion
 
@@ -98,10 +98,10 @@ namespace Vkr_WPF.ViewModels.Windows
 
         #region add
         private RelayCommand showAddTaskWindowCommand;
-        public RelayCommand ShowAddTaskWindowCommand => showAddTaskWindowCommand ?? (showAddTaskWindowCommand = new RelayCommand(ShowAddTaskWindow, CanShowAddTaskWindow));
+        public RelayCommand ShowAddTaskWindowCommand => showAddTaskWindowCommand ?? (showAddTaskWindowCommand = new RelayCommand(ShowAddTaskWindow));
 
         private RelayCommand showAddDocumentWindowCommand;
-        public RelayCommand ShowAddDocumentWindowCommand => showAddDocumentWindowCommand ?? (showAddDocumentWindowCommand = new RelayCommand(ShowAddDocumentWindow, CanShowAddDocumentWindow));
+        public RelayCommand ShowAddDocumentWindowCommand => showAddDocumentWindowCommand ?? (showAddDocumentWindowCommand = new RelayCommand(ShowAddDocumentWindow));
         #endregion
 
         #region delete
@@ -168,7 +168,7 @@ namespace Vkr_WPF.ViewModels.Windows
 
         #region show
         private void ShowDocumentWindow(object obj) => ShowDocumentWindowAction(SelectedDocument);
-        private void ShowTaskWindow(object obj) => ShowTaskWindowAction(SelectedTask);
+        private void ShowTaskWindow(object obj) => ShowTaskWindowAction(this);
         private void ShowEmployeeWindow(object obj) => ShowEmployeeWindowAction(SelectedEmployee);
         #endregion
 
@@ -192,18 +192,6 @@ namespace Vkr_WPF.ViewModels.Windows
         #endregion
 
         #region add
-        private bool CanShowAddTaskWindow(object arg)
-        {
-            if (SelectedTask != null)
-                return true;
-            return false;
-        }
-        private bool CanShowAddDocumentWindow(object arg)
-        {
-            if (SelectedDocument != null)
-                return true;
-            return false;
-        }
         #endregion
 
         #region show

@@ -1,11 +1,19 @@
 ﻿
 FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\App.xaml;;
-FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AuthorizationWindow.xaml;;
-FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\MainWindow.xaml;;
-FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\ViewModels\Windows\ProjectPage.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\ProjectPage.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\AddProjectPage.xaml;;
 FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\DocumentsListPage.xaml;;
 FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\ProjectsListPage.xaml;;
 FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\RegistrationPage.xaml;;
-FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\AddProjectPage.xaml;;
-FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Pages\ProjectPage.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AddDocumentWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AddEditWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AddEmployeeWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AddStageWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AddTaskwindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\AuthorizationWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\DocumentWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\EmployeeWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\MainWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\ProjectStageWindow.xaml;;
+FC:\Users\ККК\source\repos\Vkr_WPF\Vkr_WPF\Views\Windows\TaskWindow.xaml;;
 

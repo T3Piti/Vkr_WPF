@@ -3,12 +3,353 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Vkr_WPF.Views.Pages"
+      xmlns:local="clr-namespace:Vkr_WPF.ViewModels.Windows"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProjectPage">
-
+      d:DesignHeight="850" d:DesignWidth="1000"
+      Title="ProjectPage"
+      FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt">
+    <Page.Resources>
+        <Style x:Key="TextBoxStyle">
+            <Setter Property="ItemsControl.Background" Value="Transparent"/>
+            <Setter Property="ItemsControl.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="0"/>
+            <Setter Property="ItemsControl.Padding" Value="5"/>
+            <Setter Property="ItemsControl.Foreground" Value="#DBDBEA"/>
+            <Setter Property="ItemsControl.FontSize" Value="20"/>
+            <Setter Property="ItemsControl.Width" Value="280"/>
+        </Style>
+    </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         
+        <!--Название проекта-->
+        <Label Content="{Binding ProjectName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               Padding="5"
+               Grid.Row="0"
+               Margin="10"
+               FontSize="25"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Stretch"
+               Background="Transparent"
+               Foreground="#0D0D2E"/>
+        
+        <!--Поиск сотрудников-->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1">
+            <Label Content="Сотрудники"
+                   Padding="5"
+                   Margin="10"
+                   FontSize="20"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Stretch"
+                   Background="Transparent"
+                   Foreground="#0D0D2E"/>
+            <Border CornerRadius="15"
+                    Background="#0D0D2E"
+                    Width="300"
+                    Height="50"
+                    Margin="10">
+                <Grid>
+                    <Rectangle StrokeThickness="1"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}"
+                             x:Name="SearchEmployeeBox" 
+                             Text="{Binding SearchEmployeeString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBlock IsHitTestVisible="False"
+                               Text="Поиск сотрудника"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="DarkGray"
+                               FontSize="13"
+                               Padding="5"
+                               Margin="10,0,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchEmployeeBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </StackPanel>
+        
+        <!--Список сотрудников-->
+        <ListBox Grid.Row="2" Background="Transparent"
+                 ItemsSource="{Binding EmployeesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Height="200"
+                 BorderThickness="2"
+                 Margin="10"
+                 VerticalAlignment="Top">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="20"
+                        Background="#1A0C2C"
+                        Width="300"
+                        Height="150"
+                        Margin="10">
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <StackPanel>
+                                <Label Content="{Binding Path=Name}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=SecondName}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=Patronymic}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=Department}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="15"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Просмотреть"
+                              Command="{Binding ShowEmployeeWindowCommand}"/>
+                    <MenuItem Header="Добавить" 
+                              Command="{Binding ShowAddEmployeeWindowCommand }"/>
+                    <MenuItem Header="Удалить"
+                              Command="{Binding DeleteEmployeeCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--Поиск документа-->
+            <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
+                <Label Content="Документы"
+                   Padding="5"
+                   Margin="10"
+                   FontSize="20"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Stretch"
+                   Background="Transparent"
+                   Foreground="#0D0D2E"/>
+                <Border CornerRadius="15"
+                    Background="#0D0D2E"
+                    Width="250"
+                    Height="50"
+                    Margin="10">
+                    <Grid>
+                        <Rectangle StrokeThickness="1"/>
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                             x:Name="SearchDocumentBox" 
+                             Text="{Binding SeacrhDocumentString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <TextBlock IsHitTestVisible="False"
+                               Text="Поиск документа"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="DarkGray"
+                               FontSize="13"
+                               Padding="5"
+                               Margin="10,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchDocumentBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!--Поиск этапа-->
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Grid.Column="1">
+                <Label Content="Этапы"
+                   Padding="5"
+                   Margin="10"
+                   FontSize="20"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Stretch"
+                   Background="Transparent"
+                   Foreground="#0D0D2E"/>
+                <Border CornerRadius="15"
+                    Background="#0D0D2E"
+                    Width="250"
+                    Height="50"
+                    Margin="10">
+                    <Grid>
+                        <Rectangle StrokeThickness="1"/>
+                        <TextBox Style="{StaticResource TextBoxStyle}"
+                             x:Name="SearchStageBox" 
+                             Text="{Binding SearchStageString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <TextBlock IsHitTestVisible="False"
+                               Text="Поиск этапа"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="DarkGray"
+                               FontSize="13"
+                               Padding="5"
+                               Margin="10,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchStageBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            
+            <!--Список документов-->
+            <ListBox Grid.Row="2" Background="Transparent"
+                     ItemsSource="{Binding DocumentsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedDocument, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MinHeight="90"
+                 BorderThickness="2"
+                 Margin="10"
+                 VerticalAlignment="Top">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="20"
+                        Background="#1A0C2C"
+                        Width="300"
+                        Height="150"
+                        Margin="10">
+                            <Grid>
+                                <Rectangle StrokeThickness="1"/>
+                                <StackPanel>
+                                    <Label Content="{Binding Path=name}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="20"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Просмотреть"
+                              Command="{Binding ShowDocumentWindowCommnd}"/>
+                        <MenuItem Header="Добавить" 
+                              Command="{Binding ShowAddDocumentWindowCommand}"/>
+                        <MenuItem Header="Удалить"
+                              Command="{Binding DeleteDocumentCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+
+            <!--Список этапов-->
+            <ListBox Grid.Row="2"
+                     Grid.Column="1"
+                     Background="Transparent"
+                     ItemsSource="{Binding StagesList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     SelectedItem="{Binding SelectedStage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     MinHeight="90"
+                     BorderThickness="2"
+                     Margin="10"
+                     VerticalAlignment="Top">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="30"
+                                Background="#1A0C2C"
+                                Width="300"
+                                Height="75"
+                                Margin="10,5,5,5">
+                            <Grid>
+                                <Rectangle StrokeThickness="1"/>
+                                <StackPanel VerticalAlignment="Center">
+                                   <Label Content="{Binding Path=name}"
+                                          Padding="5"
+                                          Margin="10"
+                                          FontSize="20"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Stretch"
+                                          Background="Transparent"
+                                          Foreground="#DBDBEA"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Просмотреть"
+                              Command="{Binding ShowPojectStageWindowCommand}"/>
+                        <MenuItem Header="Добавить" 
+                              Command="{Binding ShowAddstageWindowCommand}"/>
+                        <MenuItem Header="Удалить"
+                              Command="{Binding DeleteStageCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+        </Grid>
     </Grid>
 </Page>

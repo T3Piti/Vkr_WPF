@@ -1,0 +1,158 @@
+﻿<Window x:Class="Vkr_WPF.Views.Windows.EmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vkr_WPF.Views.Windows"
+        mc:Ignorable="d"
+        Title="Экран сотрудника" Height="650" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#33334C"
+        FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt">
+    <Window.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="#DBDBEA"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <!--Левая колонка-->
+        <Label Grid.Row="0" Grid.Column="0" 
+               Content="Имя:" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="1" Grid.Column="0"
+               Content="Фамилия:" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="2" Grid.Column="0"
+               Content="Отчество:" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="3" Grid.Column="0"
+               Content="Отдел:" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="4" Grid.Column="0"
+               Content="Проекты:" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="5" Grid.Column="0"
+               Content="Текущие задания:" Style="{StaticResource LabelStyle}"/>
+
+        <!--Правая колонка-->
+        <Label Grid.Row="0" Grid.Column="1" 
+               Content="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="1" Grid.Column="1" 
+               Content="{Binding SecondName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="2" Grid.Column="1" 
+               Content="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="3" Grid.Column="1" 
+               Content="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LabelStyle}"/>
+        
+        <!--Список проектов-->
+        <ListBox Grid.Row="4"
+                 Grid.Column="1"
+                 Background="Transparent"
+                 ItemsSource="{Binding ProjectsList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 Height="180"
+                 BorderThickness="0"
+                 Margin="10"
+                 VerticalAlignment="Top">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="30"
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            Background="#1A0C2C"
+                            Width="300"
+                            Height="150"
+                            Margin="10">
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <StackPanel>
+                                <Label Content="{Binding Path=name}"
+                                       Padding="5"
+                                       Margin="10,5,5,0"
+                                       FontSize="20"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Stretch"
+                                       Background="Transparent"
+                                       Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=date_start}"
+                                       Padding="5"
+                                       Margin="10,5,5,0"
+                                       FontSize="20"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Stretch"
+                                       Background="Transparent"
+                                       Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=date_end}"
+                                       Padding="5"
+                                       Margin="10,5,5,0"
+                                       FontSize="20"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Stretch"
+                                       Background="Transparent"
+                                       Foreground="#DBDBEA"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--Список заданий-->
+        <ListBox Grid.Row="5"
+                 Grid.Column="1"
+                 Background="Transparent"
+                 ItemsSource="{Binding TasksList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 Height="90"
+                 BorderThickness="0"
+                 Margin="5"
+                 VerticalAlignment="Top">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="30"
+                            Grid.Column="1"
+                            Grid.Row="5"
+                            Background="#1A0C2C"
+                            Width="300"
+                            Height="75"
+                            Margin="10,5,5,5">
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <StackPanel VerticalAlignment="Center">
+                                <Label Content="{Binding Path=name}"
+                                       Padding="5"
+                                       Margin="10"
+                                       FontSize="20"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Stretch"
+                                       Background="Transparent"
+                                       Foreground="#DBDBEA"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

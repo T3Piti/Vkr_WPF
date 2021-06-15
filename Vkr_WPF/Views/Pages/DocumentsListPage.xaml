@@ -6,9 +6,120 @@
       xmlns:local="clr-namespace:Vkr_WPF.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="DocumentsListPage">
-
+      Title="DocumentsListPage"
+      FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt">
+    <Page.Resources>
+        <Style x:Key="TextBoxStyle">
+            <Setter Property="ItemsControl.Background" Value="Transparent"/>
+            <Setter Property="ItemsControl.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.BorderThickness" Value="0"/>
+            <Setter Property="ItemsControl.Padding" Value="5"/>
+            <Setter Property="ItemsControl.Foreground" Value="#DBDBEA"/>
+            <Setter Property="ItemsControl.FontSize" Value="20"/>
+            <Setter Property="ItemsControl.Width" Value="280"/>
+        </Style>
+    </Page.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         
+        <!--Поиск документов-->
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Документы"
+                   Padding="5"
+                   Margin="10"
+                   FontSize="20"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Stretch"
+                   Background="Transparent"
+                   Foreground="#0D0D2E"/>
+            <Border CornerRadius="15"
+                    Background="#0D0D2E"
+                    Width="300"
+                    Height="50"
+                    Margin="10">
+                <Grid>
+                    <Rectangle StrokeThickness="1"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}"
+                             x:Name="SearchDocumentsBox" 
+                             Text="{Binding SearchDocument, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBlock IsHitTestVisible="False"
+                               Text="Поиск документа"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="DarkGray"
+                               FontSize="13"
+                               Padding="5"
+                               Margin="10,0,0,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchDocumentsBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </StackPanel>
+        
+        <!--Список документов-->
+        <ListBox Grid.Row="1" Background="Transparent"
+                 ItemsSource="{Binding DocumentsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedDocument, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MinHeight="200"
+                 BorderThickness="2"
+                 Margin="10"
+                 VerticalAlignment="Top">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="30"
+                        Background="#1A0C2C"
+                        Width="300"
+                        Height="150"
+                        Margin="10">
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <StackPanel>
+                                <Label Content="{Binding Path=name}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="20"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                                <Label Content="{Binding Path=date}"
+                                   Padding="5"
+                                   Margin="10,5,5,0"
+                                   FontSize="20"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Stretch"
+                                   Background="Transparent"
+                                   Foreground="#DBDBEA"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Просмотреть"
+                              Command="{Binding ShowDocumentWindowCommand}"/>
+                    <MenuItem Header="Удалить"
+                              Command="{Binding DeleteDocumentCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
     </Grid>
 </Page>

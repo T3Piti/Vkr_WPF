@@ -14,6 +14,8 @@ namespace Vkr_WPF.ViewModels.Windows
 {
     public class AddEmployeeWindowViewModel : INotifyPropertyChanged
     {
+        private string searchEmployeeString;
+        public string SearchEmployeeString { get => searchEmployeeString; set { searchEmployeeString = value; OnPropertyChanged(); } }
         private TaskWindowViewModel TaskWindowVM { get; set; }
         private ProjectPageViewModel ProjectPageVM { get; set; }
 
@@ -99,7 +101,7 @@ namespace Vkr_WPF.ViewModels.Windows
             {
                 using (var db = new DocsdbContext())
                 {
-                    var _employees = db.project_has_employees.Where(pe => pe.project_id == TaskWindowVM.CurrentTask.stage.project_id).ToList();
+                    var _employees = db.project_has_employees.Where(pe => pe.project_id == TaskWindowVM.ProjectStageVM.CurrentStage.project_id).ToList();
                     foreach (var _employee in _employees)
                         EmployeesList.Add(new ShortEmployeeModel
                         {
@@ -153,7 +155,7 @@ namespace Vkr_WPF.ViewModels.Windows
                     db.task_has_employees.Add(new task_has_employees
                     {
                         user_info_id = SelectedEmployee.Id,
-                        task_id = this.TaskWindowVM.CurrentTask.id
+                        task_id = this.TaskWindowVM.ProjectStageVM.SelectedTask.id
                     });
                     db.SaveChanges();
                 }

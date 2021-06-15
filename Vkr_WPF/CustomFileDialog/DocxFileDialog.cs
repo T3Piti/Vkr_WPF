@@ -1,13 +1,17 @@
 ﻿using Microsoft.Office.Interop.Word;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Xps.Packaging;
+using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace Vkr_WPF.CustomFileDialog
 {
@@ -22,7 +26,7 @@ namespace Vkr_WPF.CustomFileDialog
             if (result == true)
             {
                 FilePath = dlg.FileName;
-                Application word = new Application();
+                 Application word = new Application();
                 string newXPSDocumentName = String.Concat(System.IO.Path.GetDirectoryName(FilePath), "\\",
                            System.IO.Path.GetFileNameWithoutExtension(dlg.FileName), ".xps");
                 DocText = ConvertWordDocToXPSDoc(FilePath, newXPSDocumentName).GetFixedDocumentSequence();
@@ -31,6 +35,27 @@ namespace Vkr_WPF.CustomFileDialog
             DocText = null;
             FilePath = String.Empty;
             return String.Empty;
+        }
+
+        public void FileChooser()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".docx";
+            dlg.Filter = ".Docx Files (*.docx)|*.docx";
+            Nullable<bool> res = dlg.ShowDialog();
+            if (res==true)
+            {
+                Thread.Sleep(3000);
+                MessageBox.Show("Файл скачан");
+            }
+        }
+
+        public IDocumentPaginatorSource OpenFile(string path)
+        {
+            Application word = new Application();
+            string newXPSDocumentName = String.Concat(System.IO.Path.GetDirectoryName(path), "\\",
+                       System.IO.Path.GetFileNameWithoutExtension(path), ".xps");
+            return ConvertWordDocToXPSDoc(path, newXPSDocumentName).GetFixedDocumentSequence();
         }
 
         public byte[] ConvertToByte(string FileName) => File.ReadAllBytes(FileName);

@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Главное окно" Height="450" Width="800" Background="#33334C"
         Foreground="#DBDBEA"
-        FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt">
+        FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     <Window.Resources>
         <Style x:Key="NavigationButtonsStyle" TargetType="Button">
             <Setter Property="Height" Value="50"/>

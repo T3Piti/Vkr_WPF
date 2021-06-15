@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:Vkr_WPF.Views.Windows"
         mc:Ignorable="d"
         Title="Окно авторизации" Height="430" Width="600"
-        FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt" Background="#33334C"
-        ResizeMode="NoResize">
+        FontFamily="/Vkr_WPF;component/Fonts/#Natural Mono Alt"
+        Background="#33334C"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="30"/>
